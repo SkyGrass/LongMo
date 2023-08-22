@@ -56,9 +56,36 @@ export default {
   },
   methods: {
     redirect({ id, path, whCode, rdCode, deptCode }) {
-      this.$store.dispatch("setDefWhCode", whCode);
-      this.$store.dispatch("setDefRdCode", rdCode);
-      this.$store.dispatch("setDefDeptCode", deptCode);
+      if (whCode.indexOf("|") < 0) {
+        this.$store.dispatch("setDefWhCode", whCode);
+        this.$store.dispatch("setDefInWhCode", whCode);
+      } else {
+        const inWhCode = whCode.split("|")[0];
+        const outWhCode = whCode.split("|")[1];
+        this.$store.dispatch("setDefInWhCode", inWhCode);
+        this.$store.dispatch("setDefOutWhCode", outWhCode);
+      }
+
+      if (rdCode.indexOf("|") < 0) {
+        this.$store.dispatch("setDefRdCode", rdCode);
+        this.$store.dispatch("setDefInRdCode", whCode);
+      } else {
+        const inRdCode = rdCode.split("|")[0];
+        const outRdCode = rdCode.split("|")[1];
+        this.$store.dispatch("setDefInRdCode", inRdCode);
+        this.$store.dispatch("setDefOutRdCode", outRdCode);
+      }
+
+      if (deptCode.indexOf("|") < 0) {
+        this.$store.dispatch("setDefDeptCode", deptCode);
+        this.$store.dispatch("setDefInDeptCode", deptCode);
+      } else {
+        const inDeptCode = deptCode.split("|")[0];
+        const outDeptCode = deptCode.split("|")[1];
+        this.$store.dispatch("setDefInDeptCode", inDeptCode);
+        this.$store.dispatch("setDefOutDeptCode", outDeptCode);
+      }
+
       const children = this.origin.filter((f) => f.FParentID == id);
       if (children.length > 0) {
         //展示子集

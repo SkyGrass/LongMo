@@ -56,7 +56,7 @@
             style="padding: 2px; width: 80%; display: inline-flex; justify-content: space-between"
           >
             <div style="font-weight: bold">仓库：{{ item.cWhName }}</div>
-            <div style="font-weight: bold">仓位：{{ item.cPosName }}</div>
+            <div style="font-weight: bold">货位：{{ item.cPosName }}</div>
           </li>
           <li v-if="curQueryTypeId != 3" style="padding: 2px">存货编码：{{ item.cInvCode }}</li>
           <li v-if="curQueryTypeId != 3" style="padding: 2px">存货名称：{{ item.cInvName }}</li>

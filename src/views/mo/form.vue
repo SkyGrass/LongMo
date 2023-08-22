@@ -260,7 +260,7 @@
               "
             >
               <div>单位：{{ queryForm.cComUnitName }}</div>
-              <div>产品数量：{{ queryForm.iQuantity }}</div> 
+              <div>产品数量：{{ queryForm.iQuantity }}</div>
             </li>
             <li style="padding: 2px">
               车间：{{ queryForm.cDepCode }}||{{ queryForm.cDepName }}
@@ -317,13 +317,7 @@ import { newGuid, floatAdd, floatSub } from "@/utils";
 import warehouse from "@/components/warehouse";
 import deptpartment from "@/components/deptpartment";
 import rd from "@/components/rd";
-import {
-  getWarehouse,
-  getDepartment,
-  getRdStyle,
-  getPosition,
-  getSN,
-} from "@/api/base";
+import { getWarehouse, getDepartment, getRdStyle, getPosition, getSN } from "@/api/base";
 import dayjs from "dayjs";
 export default {
   name: `mo_form`,
@@ -640,7 +634,6 @@ export default {
         });
       }
 
-      // getSN({ cBarcode: this.form.cBarcode, cWhCode: this.cWhCode, cPosCode: this.form.cPosCode })
       getSN(Object.assign({}, { FSN: this.form.cBarcode }, this.headForm))
         .then(({ Data }) => {
           if (Data.length > 0) {
@@ -724,12 +717,7 @@ export default {
               this.form.cSourceBillNo = row.cCode; //源单单号
               this.form.cSourceBillEntryID = row.Autoid; //源单表体ID
 
-              // if (this.control.usePos) {
-              //   this.form.cPosName = ''
-              // } else {
               this.form.cBarcode = "";
-              // }
-              // this.curEle = 'ele_iQuantity'
 
               if (this.control.readOnly_iQuantity) {
                 this.onSubmit();

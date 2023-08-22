@@ -18,6 +18,15 @@ const getters = {
   defWhCode: state => state.runtime.defWhCode,
   defRdCode: state => state.runtime.defRdCode,
   defDeptCode: state => state.runtime.defDeptCode,
+
+  defInWhCode: state => state.runtime.defInWhCode,
+  defInRdCode: state => state.runtime.defInRdCode,
+  defInDeptCode: state => state.runtime.defInDeptCode,
+
+  defOutWhCode: state => state.runtime.defOutWhCode,
+  defOutRdCode: state => state.runtime.defOutRdCode,
+  defOutDeptCode: state => state.runtime.defOutDeptCode,
+
   numProps: state => ['iChangRate', 'iNum', 'iLabelQuantity', 'iOddQuantity', 'iStockQuantity', 'iPlanQuantity', 'iCommitQuantity']
 }
 export default getters

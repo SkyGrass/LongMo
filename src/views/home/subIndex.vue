@@ -31,57 +31,87 @@
 </template>
 
 <script>
-import { getMenu } from '@/api/home'
+import { getMenu } from "@/api/home";
 
-import redblue from '@/components/redblue'
+import redblue from "@/components/redblue";
 export default {
   name: `home`,
   components: { redblue },
   data() {
     return {
-      list: []
-    }
+      list: [],
+    };
   },
   computed: {
     model() {
-      return this.$store.getters.model
+      return this.$store.getters.model;
     },
     menus() {
-      return this.list.map(m => {
-        m.icon = require('../../../static/' + m.icon)
-        return m
-      })
-    }
+      return this.list.map((m) => {
+        m.icon = require("../../../static/" + m.icon);
+        return m;
+      });
+    },
   },
   methods: {
-    redirect({ id, path }) {
+    redirect({ id, path, whCode, rdCode, deptCode }) {
+      if (whCode.indexOf("|") < 0) {
+        this.$store.dispatch("setDefWhCode", whCode);
+        this.$store.dispatch("setDefInWhCode", whCode);
+      } else {
+        const inWhCode = whCode.split("|")[0];
+        const outWhCode = whCode.split("|")[1];
+        this.$store.dispatch("setDefInWhCode", inWhCode);
+        this.$store.dispatch("setDefOutWhCode", outWhCode);
+      }
+
+      if (rdCode.indexOf("|") < 0) {
+        this.$store.dispatch("setDefRdCode", rdCode);
+        this.$store.dispatch("setDefInRdCode", whCode);
+      } else {
+        const inRdCode = rdCode.split("|")[0];
+        const outRdCode = rdCode.split("|")[1];
+        this.$store.dispatch("setDefInRdCode", inRdCode);
+        this.$store.dispatch("setDefOutRdCode", outRdCode);
+      }
+
+      if (deptCode.indexOf("|") < 0) {
+        this.$store.dispatch("setDefDeptCode", deptCode);
+        this.$store.dispatch("setDefInDeptCode", deptCode);
+      } else {
+        const inDeptCode = deptCode.split("|")[0];
+        const outDeptCode = deptCode.split("|")[1];
+        this.$store.dispatch("setDefInDeptCode", inDeptCode);
+        this.$store.dispatch("setDefOutDeptCode", outDeptCode);
+      }
+
       this.$router.push({
         path: path,
         query: {
           t: new Date() * 1,
-          from: id
-        }
-      })
-    }
+          from: id,
+        },
+      });
+    },
   },
   mounted() {
-    const fromId = this.$route.query.from
+    const fromId = this.$route.query.from;
 
     getMenu({}).then(({ Data }) => {
-      this.list = Data.filter(f => f.FParentID == fromId || 0).map(m => {
+      this.list = Data.filter((f) => f.FParentID == fromId || 0).map((m) => {
         return {
           id: m.FItemID,
-          icon: m.FImage || 'icon_list.png',
+          icon: m.FImage || "icon_list.png",
           label: m.FName,
           path: m.FUrl,
           whCode: m.FDefaultWhCode,
           rdCode: m.FDefaultRdCode,
-          deptCode:m.FDefaultRdCode
-        }
-      })
-    })
-  }
-}
+          deptCode: m.FDefaultRdCode,
+        };
+      });
+    });
+  },
+};
 </script>
 <style lang="scss" scoped>
 .grid {
